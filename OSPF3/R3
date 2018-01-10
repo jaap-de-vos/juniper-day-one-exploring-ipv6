@@ -1,0 +1,59 @@
+interfaces {
+    ge-0/0/0 {
+        unit 0 {
+            family inet6 {
+                address 2001:8db:0:4::3/64;
+            }
+        }
+    }
+    ge-0/0/1 {
+        vlan-tagging;
+        unit 34 {
+            vlan-id 34;
+            family inet6 {
+                address 2001:8db:0:6::3/64;
+            }
+        }
+    }
+    ge-0/0/2 {
+        vlan-tagging;
+        unit 35 {
+            vlan-id 35;
+            family inet6 {
+                address 2001:8db:0:7::3/64;
+            }
+        }
+    }
+    ge-0/0/3 {
+        unit 0 {
+            family inet6 {
+                address 2001:8db:0:3::3/64;
+            }
+        }
+    }
+    lo0 {
+        unit 0 {
+            family inet6 {
+                address 2001:8db::3/128;
+            }
+        }
+    }
+}
+routing-options {
+    router-id 3.3.3.3;
+}
+protocols {
+    ospf3 {
+        area 0.0.0.0 {
+            interface lo0.0 {
+                passive;
+            }
+            interface ge-0/0/0.0;
+            interface ge-0/0/3.0;
+            interface ge-0/0/1.34;
+        }
+        area 1.1.1.1 {
+            interface ge-0/0/2.35;
+        }
+    }
+}
